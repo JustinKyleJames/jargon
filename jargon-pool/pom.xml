@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.irods</groupId>
 		<artifactId>jargon</artifactId>
-		<version>4.3.4.0-RELEASE</version>
+		<version>4.3.5.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.irods.jargon</groupId>
 	<artifactId>jargon-pool</artifactId>
@@ -56,7 +56,7 @@
 						<id>0</id>
 						<phase>validate</phase>
 						<configuration>
-							<tasks>
+							<target>
 								<delete
 									file="${basedir}/src/test/resources/testing.properties" />
 								<touch
@@ -87,7 +87,7 @@
 									test.mac.icommand.path=${jargon.test.mac.icommand.path}
 									test.option.exercise.remoteexecstream=${jargon.test.option.exercise.remoteexecstream}
 								</echo>
-							</tasks>
+							</target>
 						</configuration>
 						<goals>
 							<goal>run</goal>

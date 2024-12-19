@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>jargon</artifactId>
 		<groupId>org.irods</groupId>
-		<version>4.3.4.0-RELEASE</version>
+		<version>4.3.5.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.irods.jargon</groupId>
 	<artifactId>jargon-mdquery</artifactId>
@@ -66,7 +66,7 @@
 						<id>0</id>
 						<phase>validate</phase>
 						<configuration>
-							<tasks>
+							<target>
 								<delete file="${basedir}/src/test/resources/testing.properties" />
 								<touch file="${basedir}/src/test/resources/testing.properties" mkdirs="true" />
 								<echo file="${basedir}/src/test/resources/testing.properties" append="true"> 
@@ -116,7 +116,7 @@
 								test.option.gsi.user=${test.option.gsi.user}
 								test.option.gsi.file=${test.option.gsi.file}
 								</echo>
-							</tasks>
+							</target>
 						</configuration>
 						<goals>
 							<goal>run</goal>
