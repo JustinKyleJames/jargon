@@ -23,9 +23,16 @@ public class ModAccessControlInp extends AbstractIRODSPackingInstruction {
 	public static final String PATH = "path";
 	public static final String ADMIN = "admin:";
 
-	public static final String READ_PERMISSION = "read";
-	public static final String WRITE_PERMISSION = "write";
+	public static final String READ_PERMISSION = "read_object";
+	public static final String WRITE_PERMISSION = "write_object";
 	public static final String OWN_PERMISSION = "own";
+	public static final String DELETE_OBJECT_PERMISSION = "delete_object";
+	public static final String CREATE_OBJECT_PERMISSION = "create_object";	
+	public static final String CREATE_METADATA_PERMISSION = "create_metadata";
+	public static final String READ_METADATA_PERMISSION = "read_metadata";
+	public static final String MODIFY_METADATA_PERMISSION = "modify_metadata";
+	public static final String DELETE_METADATA_PERMISSION = "delete_metadata";
+	
 	public static final String INHERIT_PERMISSION = "inherit";
 	public static final String NOINHERIT_PERMISSION = "noinherit";
 	public static final String NULL_PERMISSION = "null";
