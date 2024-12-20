@@ -10,9 +10,9 @@ import java.util.List;
  */
 public enum FilePermissionEnum {
 
-	NONE(-1), NULL(1000), EXECUTE(1010), READ_ANNOTATION(1020), READ_SYSTEM_METADATA(1030), READ_METADATA(1040), READ(
+	NONE(-1), NULL(1000), EXECUTE(1010), READ_ANNOTATION(1020), READ_SYSTEM_METADATA(1030), READ_METADATA(1040), READ_OBJECT(
 			1050), WRITE_ANNOTATION(1060), CREATE_METADATA(1070), MODIFY_METADATA(1080), DELETE_METADATA(
-					1090), ADMINISTER_OBJECT(1100), CREATE_OBJECT(1110), WRITE(1120), DELETE_OBJECT(
+					1090), ADMINISTER_OBJECT(1100), CREATE_OBJECT(1110), MODIFY_OBJECT(1120), DELETE_OBJECT(
 							1130), CREATE_TOKEN(1140), DELETE_TOKEN(1150), CURATE(1160), OWN(1200),;
 
 	private int permissionNumericValue;
@@ -38,7 +38,7 @@ public enum FilePermissionEnum {
 		case 1060:
 			return WRITE_ANNOTATION;
 		case 1050:
-			return READ;
+			return READ_OBJECT;
 		case 1070:
 			return CREATE_METADATA;
 		case 1080:
@@ -50,7 +50,7 @@ public enum FilePermissionEnum {
 		case 1110:
 			return CREATE_OBJECT;
 		case 1120:
-			return WRITE;
+			return MODIFY_OBJECT;
 		case 1130:
 			return DELETE_OBJECT;
 		case 1140:
@@ -85,12 +85,12 @@ public enum FilePermissionEnum {
 
 		if (textPermission.equals("read") || textPermission.equals("read object")
 				|| textPermission.equals("read_object")) {
-			return READ;
+			return READ_OBJECT;
 		}
 
 		if (textPermission.equals("write") || textPermission.equals("modify object")
 				|| textPermission.equals("modify_object")) {
-			return WRITE;
+			return MODIFY_OBJECT;
 		}
 
 		if (textPermission.equals("create_metadata")) {
@@ -103,6 +103,10 @@ public enum FilePermissionEnum {
 
 		if (textPermission.equals("delete_metadata")) {
 			return DELETE_METADATA;
+		}
+		
+		if (textPermission.equals("read_metadata")) {
+			return READ_METADATA;
 		}
 
 		if (textPermission.equals("create_object")) {

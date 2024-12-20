@@ -3002,7 +3002,75 @@ public final class DataObjectAOImpl extends FileCatalogObjectAOImpl implements D
 	public void setAccessPermission(final String zone, final String absolutePath, final String userName,
 			final FilePermissionEnum filePermission) throws JargonException {
 
-		log.info("setAccessPermission()");
+		if (zone == null) {
+			throw new IllegalArgumentException("null zone");
+		}
+
+		if (absolutePath == null || absolutePath.isEmpty()) {
+			throw new IllegalArgumentException("null or empty absolutePath");
+		}
+
+		if (userName == null || userName.isEmpty()) {
+			throw new IllegalArgumentException("null or empty userName");
+		}
+
+		if (filePermission == null) {
+			throw new IllegalArgumentException("null filePermission");
+		}
+		String effectiveAbsPath = resolveAbsolutePathViaObjStat(absolutePath);
+
+		ModAccessControlInp modAccessControlInp;
+
+		if (filePermission == FilePermissionEnum.OWN) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.OWN_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.READ_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.READ_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.MODIFY_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.WRITE_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.NONE) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.NULL_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.CREATE_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.CREATE_METADATA_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.CREATE_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.CREATE_OBJECT_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.DELETE_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.DELETE_METADATA_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.DELETE_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.DELETE_OBJECT_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.MODIFY_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.MODIFY_METADATA_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.READ_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermission(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.READ_METADATA_PERMISSION);
+		} else {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Cannot update permission, invalid file permission - ");
+			sb.append(filePermission);
+			throw new JargonException(sb.toString());
+		}
+		
+		getIRODSProtocol().irodsFunction(modAccessControlInp);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.irods.jargon.core.pub.DataObjectAO#setAccessPermissionAsAdmin(java.lang.
+	 * String, java.lang.String, java.lang.String,
+	 * org.irods.jargon.core.protovalues.FilePermissionEnum)
+	 */
+	@Override
+	public void setAccessPermissionAsAdmin(final String zone, final String absolutePath, final String userName,
+			final FilePermissionEnum filePermission) throws JargonException {
 
 		if (zone == null) {
 			throw new IllegalArgumentException("null zone");
@@ -3019,22 +3087,47 @@ public final class DataObjectAOImpl extends FileCatalogObjectAOImpl implements D
 		if (filePermission == null) {
 			throw new IllegalArgumentException("null filePermission");
 		}
+		String effectiveAbsPath = resolveAbsolutePathViaObjStat(absolutePath);
 
-		// right now, own, read, write are only permission I can set
-
+		ModAccessControlInp modAccessControlInp;
 		if (filePermission == FilePermissionEnum.OWN) {
-			setAccessPermissionOwn(zone, absolutePath, userName);
-		} else if (filePermission == FilePermissionEnum.READ) {
-			setAccessPermissionRead(zone, absolutePath, userName);
-		} else if (filePermission == FilePermissionEnum.WRITE) {
-			setAccessPermissionWrite(zone, absolutePath, userName);
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.OWN_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.READ_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.READ_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.MODIFY_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.WRITE_PERMISSION);
 		} else if (filePermission == FilePermissionEnum.NONE) {
-			removeAccessPermissionsForUser(zone, absolutePath, userName);
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.NULL_PERMISSION);	
+		} else if (filePermission == FilePermissionEnum.CREATE_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.CREATE_METADATA_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.CREATE_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.CREATE_OBJECT_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.DELETE_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.DELETE_METADATA_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.DELETE_OBJECT) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.DELETE_OBJECT_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.MODIFY_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.MODIFY_METADATA_PERMISSION);
+		} else if (filePermission == FilePermissionEnum.READ_METADATA) {
+			modAccessControlInp = ModAccessControlInp.instanceForSetPermissionInAdminMode(false, zone,
+					effectiveAbsPath, userName, ModAccessControlInp.READ_METADATA_PERMISSION);
 		} else {
-			throw new JargonException(
-					"Cannot update permission, currently only READ, WRITE, and OWN, and NONE are supported");
+			StringBuilder sb = new StringBuilder();
+			sb.append("Cannot update permission, invalid file permission - ");
+			sb.append(filePermission);
+			throw new JargonException(sb.toString());
 		}
-
+		
+		getIRODSProtocol().irodsFunction(modAccessControlInp);
 	}
 
 	@Override

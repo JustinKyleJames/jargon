@@ -1795,7 +1795,7 @@ public class CollectionAOImplTest {
 
 		collectionAO.setAccessPermission("", targetIrodsCollection,
 				testingProperties.getProperty(TestingPropertiesHelper.IRODS_SECONDARY_USER_KEY), true,
-				FilePermissionEnum.READ);
+				FilePermissionEnum.READ_OBJECT);
 
 		// log in as the secondary user and test write access
 		IRODSAccount secondaryAccount = testingPropertiesHelper
@@ -1826,7 +1826,7 @@ public class CollectionAOImplTest {
 
 		collectionAO.setAccessPermission("", targetIrodsCollection,
 				testingProperties.getProperty(TestingPropertiesHelper.IRODS_SECONDARY_USER_KEY), true,
-				FilePermissionEnum.WRITE);
+				FilePermissionEnum.MODIFY_OBJECT);
 
 		// log in as the secondary user and test write access
 		IRODSAccount secondaryAccount = testingPropertiesHelper
@@ -1944,7 +1944,7 @@ public class CollectionAOImplTest {
 		FilePermissionEnum enumVal = collectionAO.getPermissionForCollection(targetIrodsCollection,
 				secondaryAccount.getUserName(), "");
 
-		Assert.assertEquals("should have found read permissions", FilePermissionEnum.READ, enumVal);
+		Assert.assertEquals("should have found read permissions", FilePermissionEnum.READ_OBJECT, enumVal);
 
 	}
 
@@ -2077,16 +2077,16 @@ public class CollectionAOImplTest {
 					testingProperties.getProperty(TestingPropertiesHelper.IRODS_SECONDARY_USER_KEY))) {
 				secondaryUserFound = true;
 				Assert.assertEquals("should have normal zone", irodsAccount.getZone(), permission.getUserZone());
-				Assert.assertEquals("should have read permissions", FilePermissionEnum.READ,
+				Assert.assertEquals("should have read permissions", FilePermissionEnum.READ_OBJECT,
 						permission.getFilePermissionEnum());
 			} else if (permission.getUserName()
 					.equalsIgnoreCase(testingProperties.getProperty(TestingPropertiesHelper.IRODS_TERTIARY_USER_KEY))) {
 				tertiaryUserFound = true;
-				Assert.assertEquals("tertiary user should have read permissions", FilePermissionEnum.READ,
+				Assert.assertEquals("tertiary user should have read permissions", FilePermissionEnum.READ_OBJECT,
 						permission.getFilePermissionEnum());
 			} else if (permission.getUserName().equalsIgnoreCase(testGroupName)) {
 				groupFound = true;
-				Assert.assertEquals("group should have read permissions", FilePermissionEnum.READ,
+				Assert.assertEquals("group should have read permissions", FilePermissionEnum.READ_OBJECT,
 						permission.getFilePermissionEnum());
 			}
 

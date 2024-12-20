@@ -3436,7 +3436,7 @@ public class DataObjectAOImplTest {
 		FilePermissionEnum filePermissionEnum = dataObjectAO.getPermissionForDataObject(
 				irodsFileForSecondaryUser.getAbsolutePath(), secondaryAccount.getUserName(), "");
 
-		Assert.assertEquals("should have found read permissions", FilePermissionEnum.READ, filePermissionEnum);
+		Assert.assertEquals("should have found read permissions", FilePermissionEnum.READ_OBJECT, filePermissionEnum);
 
 	}
 
@@ -3470,7 +3470,7 @@ public class DataObjectAOImplTest {
 		FilePermissionEnum filePermissionEnum = dataObjectAO.getPermissionForDataObject(
 				irodsFileForSecondaryUser.getAbsolutePath(), secondaryAccount.getUserName(), "");
 
-		Assert.assertEquals("should have found read permissions", FilePermissionEnum.READ, filePermissionEnum);
+		Assert.assertEquals("should have found read permissions", FilePermissionEnum.READ_OBJECT, filePermissionEnum);
 
 	}
 
@@ -3495,7 +3495,7 @@ public class DataObjectAOImplTest {
 				testingProperties.getProperty(TestingPropertiesHelper.IRODS_SECONDARY_USER_KEY), true);
 		dataObjectAO.setAccessPermission("", targetIrodsCollection + "/" + testFileName,
 				testingProperties.getProperty(TestingPropertiesHelper.IRODS_SECONDARY_USER_KEY),
-				FilePermissionEnum.READ);
+				FilePermissionEnum.READ_OBJECT);
 
 		/*
 		 * if (props.isConsortiumVersion()) { return; }

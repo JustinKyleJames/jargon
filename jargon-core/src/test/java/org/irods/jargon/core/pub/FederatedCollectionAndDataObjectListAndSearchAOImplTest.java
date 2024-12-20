@@ -466,7 +466,7 @@ public class FederatedCollectionAndDataObjectListAndSearchAOImplTest {
 			for (UserFilePermission permission : resultEntry.getUserFilePermission()) {
 				if (permission.getFilePermissionEnum() == FilePermissionEnum.OWN) {
 					ownerEntry = permission;
-				} else if (permission.getFilePermissionEnum() == FilePermissionEnum.WRITE) {
+				} else if (permission.getFilePermissionEnum() == FilePermissionEnum.MODIFY_OBJECT) {
 					crossZoneEntry = permission;
 				}
 			}

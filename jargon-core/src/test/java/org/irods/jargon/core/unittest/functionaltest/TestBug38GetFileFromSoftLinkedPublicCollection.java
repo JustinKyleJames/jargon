@@ -122,7 +122,7 @@ public class TestBug38GetFileFromSoftLinkedPublicCollection {
 		if (!publicFile.exists()) {
 			publicFile.mkdirs();
 			collectionAO.setAccessPermission(irodsAccount.getZone(), publicDir, "public", true,
-					FilePermissionEnum.READ);
+					FilePermissionEnum.READ_OBJECT);
 		}
 
 		// do an initial unmount
@@ -208,7 +208,7 @@ public class TestBug38GetFileFromSoftLinkedPublicCollection {
 		if (!publicFile.exists()) {
 			publicFile.mkdirs();
 			collectionAO.setAccessPermission(irodsAccount.getZone(), publicDir, "public", true,
-					FilePermissionEnum.READ);
+					FilePermissionEnum.READ_OBJECT);
 		}
 
 		// do an initial unmount
@@ -295,7 +295,7 @@ public class TestBug38GetFileFromSoftLinkedPublicCollection {
 		if (!publicFile.exists()) {
 			publicFile.mkdirs();
 			collectionAO.setAccessPermission(irodsAccount.getZone(), publicDir, "public", true,
-					FilePermissionEnum.READ);
+					FilePermissionEnum.READ_OBJECT);
 		}
 
 		// do an initial unmount
@@ -377,7 +377,7 @@ public class TestBug38GetFileFromSoftLinkedPublicCollection {
 		if (!publicFile.exists()) {
 			publicFile.mkdirs();
 			collectionAO.setAccessPermission(irodsAccount.getZone(), publicDir, "public", true,
-					FilePermissionEnum.READ);
+					FilePermissionEnum.READ_OBJECT);
 		}
 
 		// do an initial unmount
@@ -456,7 +456,7 @@ public class TestBug38GetFileFromSoftLinkedPublicCollection {
 		if (!publicFile.exists()) {
 			publicFile.mkdirs();
 			collectionAO.setAccessPermission(irodsAccount.getZone(), publicDir, "public", true,
-					FilePermissionEnum.READ);
+					FilePermissionEnum.READ_OBJECT);
 		}
 
 		// do an initial unmount

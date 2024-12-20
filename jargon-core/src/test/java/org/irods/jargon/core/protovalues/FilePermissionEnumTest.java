@@ -8,9 +8,9 @@ public class FilePermissionEnumTest {
 	@Test
 	public void testEnumValueFromSpecificQueryTextPermission() {
 		Assert.assertEquals(FilePermissionEnum.OWN, FilePermissionEnum.enumValueFromSpecificQueryTextPermission("own"));
-		Assert.assertEquals(FilePermissionEnum.READ,
+		Assert.assertEquals(FilePermissionEnum.READ_OBJECT,
 				FilePermissionEnum.enumValueFromSpecificQueryTextPermission("read"));
-		Assert.assertEquals(FilePermissionEnum.WRITE,
+		Assert.assertEquals(FilePermissionEnum.MODIFY_OBJECT,
 				FilePermissionEnum.enumValueFromSpecificQueryTextPermission("write"));
 		Assert.assertEquals(FilePermissionEnum.NONE,
 				FilePermissionEnum.enumValueFromSpecificQueryTextPermission("none"));
